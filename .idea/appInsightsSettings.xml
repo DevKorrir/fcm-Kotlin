@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="dev.korryr.fcm" />
+                  <option name="mobileSdkAppId" value="1:796439013355:android:3b181492108bd594ec1bae" />
+                  <option name="projectId" value="kotlinprojects-1fea0" />
+                  <option name="projectNumber" value="796439013355" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
