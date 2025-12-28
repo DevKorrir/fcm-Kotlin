@@ -12,7 +12,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dev.korryr.fcm.MainActivity
 import dev.korryr.fcm.R
-import kotlin.math.log
 import kotlin.random.Random
 
 const val TAG = "FCM"
@@ -24,29 +23,26 @@ class MessagingService : FirebaseMessagingService() {
         Log.d(TAG, "Refreshed token: $token")
     }
 
-    fun onMessageRecieved(message: RemoteMessage){
+    override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
         message.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
             showNotification(it)
-
+        }
     }
 
-    }
-
-    private fun handleDataMessage(){
-        Log.d(TAG, "handleDataMessage")
-    }
-
-    fun showNotification(
+    private fun showNotification(
         message: RemoteMessage.Notification
     ) {
         val intent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
 
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, intent,
+            PendingIntent.FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
+        )
 
         val channelId = "Default"
 
@@ -61,15 +57,15 @@ class MessagingService : FirebaseMessagingService() {
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelName = "Firebase Messaging"
 
-        if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             manager.createNotificationChannel(channel)
         }
 
         manager.notify(Random.nextInt(), notificationBuilder)
     }
-
-
-
-
 }
